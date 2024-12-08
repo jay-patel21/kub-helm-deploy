@@ -1,0 +1,23 @@
+db:
+  name: wp-database
+  labels:
+    id: c0910888
+    app: database
+    env: dev
+    stack: wordpress-stack
+  image:
+    repository: mariadb
+    tag: 10.6.4-focal
+    pullPolicy: Always
+  replicas: 1
+  configmap:
+    ## KEY: "value"
+    APP_ENV: dev
+    MYSQL_DATABASE: wordpress
+    MYSQL_USER: wordpress
+  containerPorts:
+    mysql: 3306
+    db:
+  secrets:
+    MARIADB_ROOT_PASSWORD: bXlwYXNzd29yZA==  # Replace with the Base64-encoded password
+    MYSQL_PASSWORD: bXlwYXNzd29yZA==         # Replace with the Base64-encoded password

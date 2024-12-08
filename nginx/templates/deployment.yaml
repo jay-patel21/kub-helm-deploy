@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.ng.name }}
+  labels:
+{{- toYaml .Values.ng.labels | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+{{- toYaml .Values.ng.labels | nindent 6 }}
+  replicas: {{ .Values.ng.replicas }}
+  template:
+    metadata:
+      labels:
+{{- toYaml .Values.ng.labels | nindent 8 }}
+    spec:
+      containers:
+      - name: {{ .Values.ng.name }}
+        image: {{ .Values.ng.image.repository }}:{{ .Values.ng.image.tag }}
+        imagePullPolicy: {{ .Values.ng.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.ng.containerPorts.http }}
